@@ -7,8 +7,8 @@ using System;
 
 namespace ODataBookStore.Controllers
 {
-	//[Route("api/[Controller]")]
-	//[ApiController]
+	[Route("odata/[controller]")]
+	[ApiController]
 	public class BooksController : ODataController
 	{
 		private ApplicationDbContext _context;
@@ -40,30 +40,40 @@ namespace ODataBookStore.Controllers
 		public IActionResult Post([FromBody] Book book)
 		{
 
-			if (book == null)
+			if (!ModelState.IsValid)
 			{
-				return BadRequest("Book object is null");
+				return BadRequest(ModelState);
 			}
 
 			try
 			{
-				if (book.Press != null && book.Press.Id == 0)
+				if (book.Press != null)
 				{
-					_context.Presses.Add(book.Press);
-				}
-				else if (book.Press != null)
-				{
-					_context.Presses.Attach(book.Press);
+					if (book.Press.Id == 0)
+					{
+						_context.Presses.Add(book.Press);
+					}
+					else
+					{
+						var existingPress = _context.Presses.Find(book.Press.Id);
+						if (existingPress == null)
+						{
+							return BadRequest("Invalid Press ID");
+						}
+						_context.Entry(existingPress).CurrentValues.SetValues(book.Press);
+					}
 				}
 
 				_context.Books.Add(book);
 				_context.SaveChanges();
+
 				return Created(book);
 			}
 			catch (Exception ex)
 			{
+				// Log the full exception
 				Console.WriteLine($"Error: {ex}");
-				return StatusCode(500, "An error occurred while processing your request.");
+				return StatusCode(500, $"An error occurred while processing your request: {ex.Message}");
 			}
 		}
 
