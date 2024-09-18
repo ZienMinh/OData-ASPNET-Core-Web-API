@@ -7,24 +7,20 @@ using System;
 
 namespace ODataBookStore.Controllers
 {
-	//[Route("api/[Controller]")]
-	//[ApiController]
 	public class PressesController : ODataController
 	{
-		private ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
 
 		public PressesController(ApplicationDbContext context)
 		{
 			_context = context;
-			_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 		}
 
-		[HttpGet]
 		[EnableQuery]
-		public IActionResult Get()
+		public async Task<IActionResult> Get()
 		{
-			return Ok(_context.Presses);
+			var presses = await _context.Presses.ToListAsync();
+			return Ok(presses);
 		}
-
 	}
 }

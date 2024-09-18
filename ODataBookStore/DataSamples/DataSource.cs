@@ -20,7 +20,7 @@ namespace ODataBookStore.DataSamples
 					Location=new Address()
 					{
 						City="Thanh Pho Ho Chi Minh",
-						Stress="Vinhomes Grandpard s7.02A",
+						Street="Vinhomes Grandpard s7.02A",
 					},
 					Press = new Press()
 					{
@@ -37,7 +37,7 @@ namespace ODataBookStore.DataSamples
 					Location=new Address()
 					{
 						City="Thanh Pho Ho Chi Minh",
-						Stress="Vinhomes Grandpard s5.01B",
+						Street="Vinhomes Grandpard s5.01B",
 					},
 					Press = new Press()
 					{

@@ -15,79 +15,56 @@ namespace ODataBookStore.Controllers
 		public BooksController(ApplicationDbContext context)
 		{
 			_context = context;
-			_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 		}
 
-		[HttpGet]
-		[EnableQuery]
-		public IActionResult Get()
+		[EnableQuery(PageSize = 10)]
+		public async Task<IActionResult> Get()
 		{
-			var books = _context.Books.Include(b => b.Press).AsQueryable();
+			var books = await _context.Books.ToListAsync();
 			return Ok(books);
 		}
 
-		[HttpGet("{key}")]
 		[EnableQuery]
-		public IActionResult Get(int key, string version)
+		public async Task<IActionResult> Get(int key, string version)
 		{
-			var book = _context.Books.FirstOrDefault(b => b.Id == key);
+			var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == key);
+
+			if (book == null)
+			{
+				return NotFound();
+			}
+
 			return Ok(book);
 		}
 
-		[HttpPost]
 		[EnableQuery]
-		public IActionResult Post([FromBody] Book book)
+		public async Task<IActionResult> Post([FromBody] Book book)
 		{
-
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
-			try
-			{
-				if (book.Press != null)
-				{
-					if (book.Press.Id == 0)
-					{
-						_context.Presses.Add(book.Press);
-					}
-					else
-					{
-						var existingPress = _context.Presses.Find(book.Press.Id);
-						if (existingPress == null)
-						{
-							return BadRequest("Invalid Press ID");
-						}
-						_context.Entry(existingPress).CurrentValues.SetValues(book.Press);
-					}
-				}
+			_context.Books.Add(book);
+			await _context.SaveChangesAsync();
 
-				_context.Books.Add(book);
-				_context.SaveChanges();
-
-				return Created(book);
-			}
-			catch (Exception ex)
-			{
-				// Log the full exception
-				Console.WriteLine($"Error: {ex}");
-				return StatusCode(500, $"An error occurred while processing your request: {ex.Message}");
-			}
+			return Created(book);
 		}
 
-		[HttpDelete]
 		[EnableQuery]
-		public IActionResult Delete([FromBody] int key)
+		public async Task<IActionResult> Delete(int key)
 		{
-			var book = _context.Books.FirstOrDefault(b => b.Id == key);
-			if (book == null) return NotFound();
+			var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == key);
+
+			if (book == null)
+			{
+				return NotFound();
+			}
 
 			_context.Books.Remove(book);
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 
-			return Ok();
-
+			return NoContent();
 		}
 	}
 }
