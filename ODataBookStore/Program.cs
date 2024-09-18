@@ -65,6 +65,7 @@ if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ODataBookStore.API v1"));
+	app.UseODataRouteDebug();
 }
 app.UseCors("corspolicy");
 

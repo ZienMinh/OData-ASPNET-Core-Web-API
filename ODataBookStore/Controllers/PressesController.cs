@@ -7,7 +7,7 @@ using System;
 
 namespace ODataBookStore.Controllers
 {
-	[Route("api/presses")]
+	[Route("api/[Controller]")]
 	[ApiController]
 	public class PressesController : ODataController
 	{
