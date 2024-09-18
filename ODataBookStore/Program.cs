@@ -56,7 +56,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "ODataBookStore.API", Version = "v1" });
-	c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 });
 
 var app = builder.Build();

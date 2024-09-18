@@ -8,9 +8,6 @@ using System;
 
 namespace ODataBookStore.Controllers
 {
-	//[Route("odata/[controller]")]
-	//[ApiController]
-	[ODataRouteComponent]
 	public class BooksController : ODataController
 	{
 		private ApplicationDbContext _context;
@@ -23,7 +20,6 @@ namespace ODataBookStore.Controllers
 
 		[HttpGet]
 		[EnableQuery]
-		[ApiExplorerSettings(IgnoreApi = false)]
 		public IActionResult Get()
 		{
 			var books = _context.Books.Include(b => b.Press).AsQueryable();
@@ -32,7 +28,6 @@ namespace ODataBookStore.Controllers
 
 		[HttpGet("{key}")]
 		[EnableQuery]
-		[ApiExplorerSettings(IgnoreApi = false)]
 		public IActionResult Get(int key, string version)
 		{
 			var book = _context.Books.FirstOrDefault(b => b.Id == key);
