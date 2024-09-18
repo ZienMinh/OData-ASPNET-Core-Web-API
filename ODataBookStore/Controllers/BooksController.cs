@@ -40,9 +40,31 @@ namespace ODataBookStore.Controllers
 		public IActionResult Post([FromBody] Book book)
 		{
 
-			_context.Books.Add(book);
-			_context.SaveChanges();
-			return Created(book);
+			if (book == null)
+			{
+				return BadRequest("Book object is null");
+			}
+
+			try
+			{
+				if (book.Press != null && book.Press.Id == 0)
+				{
+					_context.Presses.Add(book.Press);
+				}
+				else if (book.Press != null)
+				{
+					_context.Presses.Attach(book.Press);
+				}
+
+				_context.Books.Add(book);
+				_context.SaveChanges();
+				return Created(book);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error: {ex}");
+				return StatusCode(500, "An error occurred while processing your request.");
+			}
 		}
 
 		[HttpDelete]

@@ -14,7 +14,10 @@ namespace ODataBookStore.EDM
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Book>().OwnsOne(b => b.Location);
+			modelBuilder.Entity<Book>().HasKey(b => b.Id);
+			modelBuilder.Entity<Press>().HasKey(p => p.Id);
+			modelBuilder.Entity<Book>()
+				.OwnsOne(b => b.Location);
 		}
 	}
 }

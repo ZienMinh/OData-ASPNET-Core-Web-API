@@ -11,7 +11,7 @@ using ODataBookStore.EDM;
 namespace ODataBookStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240918093624_InitialCreate")]
+    [Migration("20240918143552_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
