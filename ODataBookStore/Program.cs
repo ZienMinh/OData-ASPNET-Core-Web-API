@@ -32,10 +32,12 @@ builder.Services.AddCors(p =>
 // Config Kernel handles listening on IP addresses
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-	builder.WebHost.ConfigureKestrel(serverOptions =>
-	{
-		serverOptions.Listen(IPAddress.Any, 7110);
-	});
+	//builder.WebHost.ConfigureKestrel(serverOptions =>
+	//{
+	//	serverOptions.Listen(IPAddress.Any, 7110);
+	//});
+
+	serverOptions.Listen(IPAddress.Any, 7110);
 });
 
 // Configure OData
