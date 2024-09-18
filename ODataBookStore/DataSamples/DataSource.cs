@@ -24,7 +24,7 @@ namespace ODataBookStore.DataSamples
 					},
 					Press = new Press()
 					{
-						Name="Con me may",
+						Name="se van e le van",
 						Category=Category.Book
 					}
 				},
@@ -41,7 +41,41 @@ namespace ODataBookStore.DataSamples
 					},
 					Press = new Press()
 					{
-						Name="Dit me may",
+						Name="5 chiec sung",
+						Category=Category.EBook
+					}
+				},
+				new Book()
+				{
+					ISBN="987-654-321-1234-5",
+					Title="Premium C# 6.0 (longterm support)",
+					Author="HuyNNN",
+					Price=29.99M,
+					Location=new Address()
+					{
+						City="Thanh Pho Ho Chi Minh",
+						Street="Vinhomes Grandpard s5.01B",
+					},
+					Press = new Press()
+					{
+						Name="Shiba shiba",
+						Category=Category.EBook
+					}
+				},
+				new Book()
+				{
+					ISBN="987-654-321-1234-5",
+					Title="Premium C# 6.0 (longterm support)",
+					Author="HuyNNN",
+					Price=29.99M,
+					Location=new Address()
+					{
+						City="Thanh Pho Ho Chi Minh",
+						Street="Vinhomes Grandpard s5.01B",
+					},
+					Press = new Press()
+					{
+						Name="Aaaashibaa",
 						Category=Category.EBook
 					}
 				},

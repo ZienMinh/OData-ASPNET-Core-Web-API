@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
+using ODataBookStore.DataSamples;
 using ODataBookStore.EDM;
 using System;
 
@@ -11,10 +12,13 @@ namespace ODataBookStore.Controllers
 	public class BooksController : ODataController
 	{
 		private ApplicationDbContext _context;
+		private readonly DataSources _dataSources;
 
-		public BooksController(ApplicationDbContext context)
+		public BooksController(ApplicationDbContext context, DataSources dataSources)
 		{
 			_context = context;
+			_dataSources = dataSources;
+			_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 		}
 
 		[EnableQuery(PageSize = 10)]

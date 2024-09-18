@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using ODataBookStore.DataSamples;
 using ODataBookStore.EDM;
 using System.Net;
@@ -110,16 +109,6 @@ app.Use(next => context =>
 
 	return next(context);
 });
-
-app.UseExceptionHandler(a => a.Run(async context =>
-{
-	var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-	var exception = exceptionHandlerPathFeature.Error;
-
-	var result = JsonConvert.SerializeObject(new { error = exception.Message });
-	context.Response.ContentType = "application/json";
-	await context.Response.WriteAsync(result);
-}));
 
 app.UseRouting();
 
