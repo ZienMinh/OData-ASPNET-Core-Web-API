@@ -45,7 +45,7 @@ namespace ODataBookStore.Migrations
                     Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Location_City = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Location_Stress = table.Column<string>(type: "longtext", nullable: false)
+                    Location_Street = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PressId = table.Column<int>(type: "int", nullable: false)
                 },

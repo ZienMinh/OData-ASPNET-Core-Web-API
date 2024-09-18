@@ -91,7 +91,7 @@ namespace ODataBookStore.Migrations
                                 .IsRequired()
                                 .HasColumnType("longtext");
 
-                            b1.Property<string>("Stress")
+                            b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasColumnType("longtext");
 

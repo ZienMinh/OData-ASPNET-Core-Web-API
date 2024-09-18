@@ -11,7 +11,7 @@ using ODataBookStore.EDM;
 namespace ODataBookStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240918143552_InitialCreate")]
+    [Migration("20240918150203_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -94,7 +94,7 @@ namespace ODataBookStore.Migrations
                                 .IsRequired()
                                 .HasColumnType("longtext");
 
-                            b1.Property<string>("Stress")
+                            b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasColumnType("longtext");
 
