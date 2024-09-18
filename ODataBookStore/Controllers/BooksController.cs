@@ -7,8 +7,8 @@ using System;
 
 namespace ODataBookStore.Controllers
 {
-	[Route("api/[Controller]")]
-	[ApiController]
+	//[Route("api/[Controller]")]
+	//[ApiController]
 	public class BooksController : ODataController
 	{
 		private ApplicationDbContext _context;
